@@ -157,18 +157,17 @@ export default function Certifications() {
                   key={schoolGroup.school}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
                   transition={{ delay: sIndex * 0.1 }}
-                  className="bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-2xl relative overflow-hidden group shadow-2xl p-8 sm:p-10"
+                  className="bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-2xl relative overflow-hidden group shadow-2xl p-8 sm:p-10"
                 >
                   {/* Decorative background glow */}
                   <div 
-                    className={`absolute -top-32 -right-32 w-64 h-64 rounded-full opacity-10 blur-3xl transition-opacity group-hover:opacity-20 ${v.bg}`}
+                    className={`absolute -top-32 -right-32 w-64 h-64 rounded-full opacity-10 blur-3xl transition-opacity group-hover:opacity-20 bg-blue-600 dark:bg-[#f59e0b]`}
                   />
 
                   {/* School Header */}
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10 relative z-10">
-                    <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#0c0a09] border border-slate-300 dark:border-[#292524] p-3 shadow-xl transform group-hover:scale-105 transition-transform duration-500 shrink-0">
+                    <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100/50 dark:bg-[#0c0a09]/50 border border-slate-300 dark:border-[#292524] p-3 shadow-xl transform group-hover:scale-105 transition-transform duration-500 shrink-0">
                       <img 
                         src={schoolGroup.logo} 
                         alt={schoolGroup.school} 
@@ -177,9 +176,9 @@ export default function Certifications() {
                       />
                     </div>
                     <div className="text-center sm:text-left">
-                      <h4 className="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">{schoolGroup.school}</h4>
-                      <p className="font-mono text-base text-slate-700 dark:text-white/80 flex items-center justify-center sm:justify-start gap-2">
-                        <span className={`w-2 h-2 rounded-full ${v.bg}`} />
+                      <h4 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">{schoolGroup.school}</h4>
+                      <p className="font-mono text-sm text-slate-700 dark:text-white/80 flex items-center justify-center sm:justify-start gap-2">
+                        <span className={`w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-[#f59e0b]`} />
                         {schoolGroup.location}
                       </p>
                     </div>
@@ -196,10 +195,10 @@ export default function Certifications() {
                         onClick={() => setExpandedEdu(expandedEdu === prog.id ? null : prog.id)}
                       >
                         <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-3">
-                          <h5 className="font-heading text-2xl font-bold text-slate-900 dark:text-[#f3f4f6] transition-colors group-hover/prog:text-blue-600 dark:text-[#f59e0b]">{prog.degree}</h5>
-                          <span className={`font-mono text-sm uppercase tracking-widest px-4 py-1.5 bg-slate-300 dark:bg-[#0c0a09] rounded-md border border-slate-400 dark:border-[#292524] shadow-sm ${v.text}`}>{prog.date}</span>
+                          <h5 className="font-heading text-xl font-bold text-slate-900 dark:text-[#f3f4f6] transition-colors group-hover/prog:text-blue-600 dark:group-hover/prog:text-[#ea580c]">{prog.degree}</h5>
+                          <span className={`font-mono text-xs uppercase tracking-widest px-3 py-1 bg-slate-300 dark:bg-[#0c0a09] rounded border border-slate-400 dark:border-[#292524] shadow-sm text-slate-600 dark:text-[#a8a29e]`}>{prog.date}</span>
                         </div>
-                        <p className={`font-mono text-base font-bold tracking-wide mb-3 ${v.text}`}>{prog.highlight}</p>
+                        <p className={`font-mono text-sm font-medium tracking-wide mb-3 text-blue-600/80 dark:text-[#f59e0b]/80`}>{prog.highlight}</p>
                         
                         <AnimatePresence>
                           {expandedEdu === prog.id && (
@@ -242,7 +241,7 @@ export default function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-xl p-6 border-l-4 lg:hover:bg-slate-300 dark:lg:hover:bg-white/5 ${v.hoverBorder} ${v.borderLeft} transition-all duration-300 h-full flex flex-col justify-between`}
+                className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl p-6 border-l-4 lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 ${v.hoverBorder} ${v.borderLeft} transition-all duration-300 h-full flex flex-col justify-between`}
               >
                 <h4 className="font-heading text-lg font-bold text-slate-900 dark:text-[#f3f4f6] mb-4">{affil.org}</h4>
                 <div className="flex justify-between items-center font-mono text-sm text-slate-700 dark:text-[#d1d5db] uppercase tracking-wider">
@@ -289,7 +288,7 @@ export default function Certifications() {
                   transition={{ duration: 0.3 }}
                   key={cert.id}
                   onClick={() => setSelectedCert(cert)}
-                  className={`bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-xl p-6 flex flex-col items-center text-center cursor-pointer group lg:hover:bg-slate-300 dark:lg:hover:bg-white/5 ${v.hoverBorder} transition-all duration-300`}
+                  className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl p-6 flex flex-col items-center text-center cursor-pointer group lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 ${v.hoverBorder} transition-all duration-300`}
                 >
                   <div className={`w-16 h-16 mb-6 flex items-center justify-center transition-colors ${v.text}`}>
                     {svgPath ? (
@@ -322,13 +321,13 @@ export default function Certifications() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedCert(null)}
-            className="fixed inset-0 bg-slate-50 dark:bg-white/90 dark:bg-[#0c0a09]/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-slate-900/40 dark:bg-[#0c0a09]/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
           >
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-2xl p-8 text-center"
+              className="relative w-full max-w-md bg-slate-200/90 dark:bg-[#1c1917]/90 backdrop-blur-xl border border-slate-300 dark:border-[#292524] rounded-2xl p-8 text-center"
               onClick={(e) => e.stopPropagation()}
             >
               <button 

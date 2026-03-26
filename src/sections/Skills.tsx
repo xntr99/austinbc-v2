@@ -211,7 +211,7 @@ export default function Skills() {
               >
                 {/* Card Background with Glow */}
                 <div 
-                  className={`absolute inset-0 bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-2xl transition-all duration-500 ${v.hoverBorder}`}
+                  className={`absolute inset-0 bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-2xl transition-all duration-500 ${v.hoverBorder}`}
                 />
                 
                 {/* Glow Effect */}
@@ -255,14 +255,14 @@ export default function Skills() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedCategory(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="absolute inset-0 bg-slate-900/40 dark:bg-black/80 backdrop-blur-md"
             />
             
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl max-h-[85vh] bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-3xl overflow-hidden shadow-2xl flex flex-col"
+              className="relative w-full max-w-4xl max-h-[85vh] bg-slate-200/90 dark:bg-[#1c1917]/90 backdrop-blur-xl border border-slate-300 dark:border-[#292524] rounded-3xl overflow-hidden shadow-2xl flex flex-col"
             >
               {/* Modal Header */}
               <div className="p-6 sm:p-8 border-b border-slate-300 dark:border-[#292524] flex items-center justify-between bg-slate-100/90 dark:bg-[#1c1917]/90 backdrop-blur-sm sticky top-0 z-10">
@@ -307,10 +307,12 @@ export default function Skills() {
                         transition={{ delay: skillIndex * 0.05 }}
                         className={`relative p-4 rounded-xl border transition-all duration-300 cursor-pointer group ${
                           isActive 
-                            ? `bg-slate-300 dark:bg-[#292524] ${v.activeBorder} lg:scale-[1.02] shadow-lg ${v.activeShadow}` 
-                            : 'bg-slate-200 dark:bg-[#1c1917] border-slate-300 dark:border-[#292524] hover:border-slate-500 hover:dark:border-white/20'
+                            ? `bg-slate-300/80 dark:bg-[#292524]/80 ${v.activeBorder} lg:scale-[1.02] shadow-lg ${v.activeShadow}` 
+                            : 'bg-slate-200/50 dark:bg-[#1c1917]/50 border-slate-300 dark:border-[#292524] hover:border-slate-500 hover:dark:border-white/20'
                         }`}
                         onClick={() => setActiveSkill(isActive ? null : skill.name)}
+                        onMouseEnter={() => window.innerWidth >= 1024 && setActiveSkill(skill.name)}
+                        onMouseLeave={() => window.innerWidth >= 1024 && setActiveSkill(null)}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div 
@@ -329,7 +331,7 @@ export default function Skills() {
                             )}
                           </div>
                           <span className={`font-bold text-sm transition-colors ${
-                            isActive ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-[#d1d5db]'
+                            isActive ? (v.text || 'text-blue-600 dark:text-[#f59e0b]') : `text-slate-700 dark:text-[#d1d5db] group-hover:text-blue-600 dark:group-hover:text-[#f59e0b]`
                           }`}>
                             {skill.name}
                           </span>

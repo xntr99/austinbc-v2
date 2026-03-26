@@ -109,7 +109,7 @@ const getCategoryStyles = (category: string) => {
     shadow: 'shadow-[0_0_15px_rgba(37,99,235,0.2)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)]',
     hoverBorder: 'lg:hover:border-blue-400 dark:lg:hover:border-[#9ca3af]/50',
     hoverText: 'lg:group-hover:text-blue-600 dark:group-hover:text-[#f3f4f6]',
-    buttonHoverText: 'lg:hover:text-slate-900 dark:hover:text-slate-900 dark:hover:text-[#f3f4f6]'
+    buttonHoverText: 'lg:hover:text-blue-600 dark:hover:text-[#f3f4f6]'
   };
 };
 
@@ -167,9 +167,8 @@ export default function Projects() {
                 key={project.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className={`group relative bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-xl overflow-hidden cursor-pointer ${getCategoryStyles(project.category).hoverBorder} transition-all duration-500 flex flex-col h-[400px]`}
+                className={`group relative bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl overflow-hidden cursor-pointer ${getCategoryStyles(project.category).hoverBorder} transition-all duration-500 flex flex-col h-[400px]`}
                 onClick={() => setSelectedProject(project)}
               >
               {/* Image Container */}
@@ -190,7 +189,7 @@ export default function Projects() {
               </div>
 
               {/* Content */}
-              <div className="p-6 flex flex-col flex-grow relative bg-slate-200 dark:bg-[#1c1917] z-10 transition-all duration-500">
+              <div className="p-6 flex flex-col flex-grow relative bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md z-10 transition-all duration-500">
                 <h3 className={`font-heading text-xl font-bold text-slate-900 dark:text-[#f3f4f6] mb-4 transition-colors line-clamp-2 ${getCategoryStyles(project.category).hoverText}`}>
                   {project.title}
                 </h3>
@@ -250,14 +249,14 @@ export default function Projects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-slate-50 dark:bg-white/90 dark:bg-[#0c0a09]/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-8"
+              className="fixed inset-0 bg-slate-900/40 dark:bg-[#0c0a09]/80 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-8"
             >
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="relative w-full max-w-4xl bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                className="relative w-full max-w-4xl bg-slate-200/90 dark:bg-[#1c1917]/90 backdrop-blur-xl border border-slate-300 dark:border-[#292524] rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button 
@@ -278,7 +277,7 @@ export default function Projects() {
                     <div className={`font-mono text-xs px-3 py-1.5 rounded inline-block mb-4 border font-medium ${getCategoryStyles(selectedProject.category).bg} ${getCategoryStyles(selectedProject.category).text} ${getCategoryStyles(selectedProject.category).border}`}>
                       {selectedProject.category}
                     </div>
-                    <h3 className="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#f3f4f6] leading-tight">
+                    <h3 className="font-heading text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                       {selectedProject.title}
                     </h3>
                   </div>

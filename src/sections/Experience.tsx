@@ -184,7 +184,7 @@ export default function Experience() {
                   className={`absolute -left-[5px] top-8 w-2.5 h-2.5 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.8)] group-hover:scale-150 transition-transform duration-300 ${v.node}`} 
                 />
 
-                <div className={`bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] ${v.hoverBorder} rounded-xl p-6 flex flex-col md:flex-row gap-6 lg:hover:bg-slate-300 dark:lg:hover:bg-white/5 transition-all duration-300`}>
+                <div className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] ${v.hoverBorder} rounded-xl p-6 flex flex-col md:flex-row gap-6 lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 transition-all duration-300`}>
                   
                   {/* Icon/Logo Box */}
                   <div className="shrink-0">
@@ -267,14 +267,14 @@ export default function Experience() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedExp(null)}
-              className="fixed inset-0 bg-slate-50 dark:bg-white/90 dark:bg-[#0c0a09]/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-8"
+              className="fixed inset-0 bg-slate-900/20 dark:bg-[#0c0a09]/80 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-8"
             >
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="relative w-full max-w-2xl bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                className="relative w-full max-w-2xl bg-slate-200/90 dark:bg-[#1c1917]/90 backdrop-blur-xl border border-slate-300 dark:border-[#292524] rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="p-6 md:p-8 overflow-y-auto">

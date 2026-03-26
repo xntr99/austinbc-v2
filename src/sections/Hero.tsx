@@ -90,7 +90,7 @@ export default function Hero() {
               </div>
               <a 
                 href="#experience" 
-                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 dark:bg-[#f59e0b] text-[#0c0a09] font-medium rounded-md hover:bg-[#f3f4f6] transition-colors text-[10px] sm:text-sm w-[100px] sm:w-[140px] text-center"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 dark:bg-[#f59e0b] text-white dark:text-[#0c0a09] font-medium rounded-md hover:bg-blue-700 dark:hover:bg-[#d97706] transition-colors text-[10px] sm:text-sm w-[100px] sm:w-[140px] text-center"
               >
                 View My Work
               </a>
@@ -168,7 +168,7 @@ export default function Hero() {
 
           {/* Notable Achievements Grid */}
           <motion.div variants={itemVariants} className="w-full mb-10">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-slate-600 dark:text-[#a8a29e] mb-4">Notable Achievements</h3>
+            <h3 className="font-display text-base sm:text-lg font-bold uppercase tracking-widest text-slate-700 dark:text-[#a8a29e] mb-4">Notable Achievements</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { icon: GraduationCap, title: 'Summa Cum Laude', sub: 'BSIT, Holy Angel University', desc: 'Graduated with highest honors, demonstrating exceptional academic performance and dedication to the IT field.' },
@@ -176,7 +176,7 @@ export default function Hero() {
                 { icon: GraduationCap, title: 'MSc Cybersecurity Candidate', sub: 'Holy Angel University', desc: 'Currently advancing expertise in network defense, cryptography, and enterprise security management.' },
                 { icon: Shield, title: 'CySA+, CSAP, Sec+', sub: 'CompTIA', desc: 'Certified in cybersecurity analytics, foundational security principles, and advanced security practices.' },
                 { icon: Network, title: 'CCNP ENCOR, CCNA', sub: 'Cisco', desc: 'Cisco certified in enterprise network core technologies, routing, switching, and network fundamentals.' },
-                { icon: Cloud, title: 'AWS Solutions Architect', sub: '', desc: 'Certified in designing distributed systems and deploying highly secure, scalable applications on AWS.' },
+                { icon: Cloud, title: 'AWS Solutions Architect', sub: 'Amazon Web Services', desc: 'Certified in designing distributed systems and deploying highly secure, scalable applications on AWS.' },
                 { icon: Trophy, title: 'NASA Open Science Certified', sub: '', desc: 'Certified by NASA in Open Science principles, promoting transparency, accessibility, and collaboration in scientific research.' },
                 { icon: BookOpen, title: 'Full Scholarship in DataCamp & Inegben', sub: '', desc: 'Recipient of a full scholarship grant for DataCamp and Inegben platforms, mastering data science, AI, and cybersecurity domains.' },
               ].map((item, i) => {
@@ -188,13 +188,13 @@ export default function Hero() {
                     onMouseEnter={() => window.innerWidth >= 1024 && setActiveAchievement(item.title)}
                     onMouseLeave={() => window.innerWidth >= 1024 && setActiveAchievement(null)}
                     onClick={() => setActiveAchievement(activeAchievement === item.title ? null : item.title)}
-                    className={`p-4 rounded-xl bg-slate-200 dark:bg-[#1c1917] border ${isActive ? 'border-blue-600 dark:border-[#f59e0b]' : 'border-slate-300 dark:border-[#292524]'} flex flex-col gap-3 lg:hover:border-blue-600 dark:lg:hover:border-[#f59e0b]/50 transition-colors cursor-pointer relative overflow-hidden`}
+                    className={`group p-4 rounded-xl bg-slate-200 dark:bg-[#1c1917] border ${isActive ? 'border-blue-600 dark:border-[#f59e0b]' : 'border-slate-300 dark:border-[#292524]'} flex flex-col gap-3 lg:hover:border-blue-600 dark:lg:hover:border-[#f59e0b]/50 transition-colors cursor-pointer relative overflow-hidden`}
                   >
                     <motion.div layout className="flex items-start gap-3">
                       <item.icon className="text-blue-600 dark:text-[#f59e0b] shrink-0 mt-0.5" size={20} strokeWidth={1.5} />
                       <div className="flex flex-col gap-1.5">
-                        <div className="text-slate-900 dark:text-[#f3f4f6] font-medium text-sm leading-snug">{item.title}</div>
-                        {item.sub && <div className="text-slate-600 dark:text-[#a8a29e] text-xs leading-snug">{item.sub}</div>}
+                        <div className="text-slate-900 dark:text-[#f3f4f6] font-medium text-sm leading-snug transition-colors group-hover:text-blue-600 dark:group-hover:text-[#f59e0b]">{item.title}</div>
+                        {item.sub && <div className="text-slate-600 dark:text-[#a8a29e] text-xs leading-snug transition-colors group-hover:text-blue-500 dark:group-hover:text-[#f59e0b]/70">{item.sub}</div>}
                       </div>
                     </motion.div>
                     <AnimatePresence>
