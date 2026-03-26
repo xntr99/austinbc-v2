@@ -13,7 +13,7 @@ export default function Contact() {
     setStatus('loading');
 
     try {
-      const res = await fetch('https://formspree.io/f/mvwvpbvr', {
+      const res = await fetch('https://formspree.io/f/mwvwpbvr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -72,7 +72,7 @@ export default function Contact() {
                 required
                 disabled={status === 'loading' || status === 'success'}
                 value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="bg-slate-100 dark:bg-[#0c0a09] border border-slate-300 dark:border-[#292524] rounded-lg px-4 py-3 text-slate-900 dark:text-[#f3f4f6] focus:outline-none focus:border-blue-600 dark:focus:border-[#f59e0b] transition-colors font-body disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="John Doe"
               />
@@ -88,7 +88,7 @@ export default function Contact() {
                 required
                 disabled={status === 'loading' || status === 'success'}
                 value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="bg-slate-100 dark:bg-[#0c0a09] border border-slate-300 dark:border-[#292524] rounded-lg px-4 py-3 text-slate-900 dark:text-[#f3f4f6] focus:outline-none focus:border-blue-600 dark:focus:border-[#f59e0b] transition-colors font-body disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="john@example.com"
               />
@@ -106,7 +106,7 @@ export default function Contact() {
               rows={5}
               disabled={status === 'loading' || status === 'success'}
               value={formData.message}
-              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               className="bg-slate-100 dark:bg-[#0c0a09] border border-slate-300 dark:border-[#292524] rounded-lg px-4 py-3 text-slate-900 dark:text-[#f3f4f6] focus:outline-none focus:border-blue-600 dark:focus:border-[#f59e0b] transition-colors font-body resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               placeholder="How can I help you?"
             />
@@ -151,6 +151,16 @@ export default function Contact() {
               <><Send size={18} /> Send Message</>
             )}
           </button>
+
+          {status === 'success' && (
+            <button
+              type="button"
+              onClick={() => setStatus('idle')}
+              className="text-center font-mono text-xs text-slate-500 dark:text-[#a8a29e] hover:text-blue-600 dark:hover:text-[#f59e0b] transition-colors underline underline-offset-4"
+            >
+              Send another message?
+            </button>
+          )}
 
           {status === 'error' && (
             <button
