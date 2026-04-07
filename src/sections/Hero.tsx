@@ -24,22 +24,22 @@ export default function Hero() {
   return (
     <section id="home" className="min-h-screen relative flex items-center pt-8 pb-16 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 w-full relative z-10">
-        <motion.div 
+        <motion.div
           className="flex flex-col items-start w-full"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          
+
           {/* Top Row: Image + Titles + Buttons */}
           <div className="flex flex-row items-start sm:items-end justify-between gap-4 sm:gap-6 xl:gap-8 mb-8 w-full">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 min-w-0">
               <motion.div variants={itemVariants} className="shrink-0">
                 <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-slate-300 dark:border-[#292524] shadow-[0_0_30px_rgba(37,99,235,0.3)] dark:shadow-[0_0_30px_rgba(245,158,11,0.3)] relative group">
-                  <img 
-                    src="/austin.jpg" 
-                    alt="Austin BC" 
+                  <img
+                    src="/austin.jpg"
+                    alt="Austin BC"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1000&auto=format&fit=crop";
@@ -48,7 +48,7 @@ export default function Hero() {
                   <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-600 dark:group-hover:border-[#f59e0b]/50 rounded-2xl transition-colors duration-500 pointer-events-none" />
                 </div>
               </motion.div>
-              
+
               <div className="flex flex-col min-w-0">
                 <motion.div variants={itemVariants} className="flex items-center gap-2 mb-2 sm:mb-3">
                   <span className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0" />
@@ -66,7 +66,7 @@ export default function Hero() {
                   </h1>
                 </motion.div>
 
-                <motion.h2 
+                <motion.h2
                   variants={itemVariants}
                   className="font-body text-xs sm:text-lg md:text-xl text-slate-600 dark:text-[#a8a29e] line-clamp-2 sm:line-clamp-none"
                 >
@@ -88,14 +88,14 @@ export default function Hero() {
                   <Mail size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </a>
               </div>
-              <a 
-                href="#experience" 
+              <a
+                href="#experience"
                 className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 dark:bg-[#f59e0b] text-white dark:text-[#0c0a09] font-medium rounded-md hover:bg-blue-700 dark:hover:bg-[#d97706] transition-colors text-[10px] sm:text-sm w-[100px] sm:w-[140px] text-center"
               >
                 View My Work
               </a>
-              <a 
-                href="#projects" 
+              <a
+                href="#projects"
                 className="px-3 sm:px-5 py-2 sm:py-2.5 bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] text-blue-600 dark:text-[#f59e0b] font-medium rounded-md hover:border-blue-600 dark:hover:border-[#f59e0b]/50 hover:bg-slate-300 dark:hover:bg-[#f59e0b]/5 transition-colors text-[10px] sm:text-sm w-[100px] sm:w-[140px] text-center"
               >
                 See Projects
@@ -139,8 +139,8 @@ export default function Hero() {
                   I am also about to finish my MSc in Cybersecurity and my Postgraduate in Governance, Risk, and Compliance along with DataCamp's entire platform with a Full-Scholarship Grant, all while holding 30+ industry-standard certifications with the top vendors in the globe. Despite a deep technical map, my roots are in the humanities. I believe the best engineers are also unique thinkers and strong communicators.
                 </p>
                 <p className="text-emerald-600 dark:text-[#10b981] font-medium">
-                  Open to roles in but not limited to: Security Engineering, Enterprise Architecture (Networks & Systems), Full-Stack Development, Digital Forensics and Cyber Intelligence globally.<motion.span 
-                    animate={{ opacity: [1, 0] }} 
+                  Open to roles in but not limited to: Security Engineering, Enterprise Architecture (Networks & Systems), Full-Stack Development, Digital Forensics and Cyber Intelligence globally.<motion.span
+                    animate={{ opacity: [1, 0] }}
                     transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
                     className="inline-block w-2 h-4 bg-emerald-600 dark:bg-[#10b981] ml-1 align-middle translate-y-[-1px]"
                   />
@@ -171,9 +171,9 @@ export default function Hero() {
             <h3 className="font-display text-base sm:text-lg font-bold uppercase tracking-widest text-slate-700 dark:text-[#a8a29e] mb-4">Notable Achievements</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               {[
-                { icon: GraduationCap, title: 'Summa Cum Laude', sub: 'BSIT, Holy Angel University', desc: 'Graduated with highest honors, demonstrating exceptional academic performance and dedication to the IT field.' },
+                { icon: GraduationCap, title: 'GWA 1.05 / 4.0 GPA', sub: 'BS Information Technology, Major in Network Administration Holy Angel University', desc: 'Graduated with a GWA of 1.05 (Philippine grading scale, where 1.0 is highest). US equivalent: 4.0 GPA / Summa Cum Laude — the highest academic distinction.' },
                 { icon: Trophy, title: 'Class Valedictorian', sub: 'Humanities & Social Sciences, Hillcrest Heights Institute', desc: 'Ranked 1st in the graduating class, delivering the valedictory address and leading the student body.' },
-                { icon: GraduationCap, title: 'MSc Cybersecurity Candidate', sub: 'Holy Angel University', desc: 'Currently advancing expertise in network defense, cryptography, and enterprise security management.' },
+                { icon: GraduationCap, title: 'Master of Sciences in Cybersecurity', sub: 'Holy Angel University', desc: 'Currently advancing expertise in network defense, cryptography, and enterprise security management.' },
                 { icon: Shield, title: 'CySA+, CSAP, Sec+', sub: 'CompTIA', desc: 'Certified in cybersecurity analytics, foundational security principles, and advanced security practices.' },
                 { icon: Network, title: 'CCNP ENCOR, CCNA', sub: 'Cisco', desc: 'Cisco certified in enterprise network core technologies, routing, switching, and network fundamentals.' },
                 { icon: Cloud, title: 'AWS Solutions Architect', sub: 'Amazon Web Services', desc: 'Certified in designing distributed systems and deploying highly secure, scalable applications on AWS.' },
@@ -182,9 +182,9 @@ export default function Hero() {
               ].map((item, i) => {
                 const isActive = activeAchievement === item.title;
                 return (
-                  <motion.div 
+                  <motion.div
                     layout
-                    key={i} 
+                    key={i}
                     onMouseEnter={() => window.innerWidth >= 1024 && setActiveAchievement(item.title)}
                     onMouseLeave={() => window.innerWidth >= 1024 && setActiveAchievement(null)}
                     onClick={() => setActiveAchievement(activeAchievement === item.title ? null : item.title)}

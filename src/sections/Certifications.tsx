@@ -49,16 +49,16 @@ const education = [
     programs: [
       {
         id: '1',
-        degree: 'MSc Cybersecurity',
+        degree: 'Master of Sciences in Cybersecurity',
         date: 'Expected Nov 2026',
         highlight: 'Candidate with High Distinction',
         details: 'Pursuing advanced studies in cybersecurity, focusing on threat intelligence, incident response, and secure architecture design.'
       },
       {
         id: '2',
-        degree: 'BSIT Major in Network Administration',
+        degree: 'Bachelor of Science in Information Technology, Major in Network Administration',
         date: 'Graduated May 2024',
-        highlight: 'Summa Cum Laude · JDN Scholar · DICT Scholar · Certified Ethical Hacker',
+        highlight: 'GWA 1.05 (PH) · 4.0 GPA Equivalent (US) · JDN Scholar · DICT Scholar · Certified Ethical Hacker',
         details: 'Esports Varsity Team Captain. Specialized in network infrastructure, full-stack development, and offensive security.'
       }
     ]
