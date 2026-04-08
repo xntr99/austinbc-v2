@@ -3,8 +3,72 @@ import { motion, AnimatePresence } from 'framer-motion';
 import CountUp from 'react-countup';
 import { Github, Linkedin, Mail, GraduationCap, Trophy, Shield, BookOpen, Network, Cloud, Cpu } from 'lucide-react';
 
+import { vendorLogos } from '../data/vendorLogos';
+
+const marqueeLogos = vendorLogos.map(vendor => ({
+  name: vendor.name,
+  url: vendor.logoUrl || vendor.fallbackUrl,
+  // Wikimedia SVGs are colorful, so we treat them as 'not white' to get the nice grayscale-to-color hover effect
+  isWhite: false,
+}));
+
 export default function Hero() {
   const [activeAchievement, setActiveAchievement] = useState<string | null>(null);
+  const [activeStatDetail, setActiveStatDetail] = useState<number | null>(null);
+
+  const statDetails = [
+    {
+      label: 'Years Experience',
+      value: 5,
+      suffix: '+',
+      items: [
+        { label: 'AI Security Engineer', sub: 'micro1' },
+        { label: 'Cloud Security Engineer', sub: 'Trusted Tech' },
+        { label: 'Founder & Security Lead', sub: 'Silicon Barracks' },
+        { label: 'Security & IT Consultant', sub: 'Independent' },
+        { label: 'Full-Stack Developer', sub: 'Various Clients' },
+      ],
+    },
+    {
+      label: 'Countries Served',
+      value: 6,
+      suffix: '+',
+      items: [
+        { label: '🇺🇸 United States', sub: '' },
+        { label: '🇬🇧 United Kingdom', sub: '' },
+        { label: '🇨🇦 Canada', sub: '' },
+        { label: '🇦🇺 Australia', sub: '' },
+        { label: '🇵🇭 Philippines', sub: '' },
+        { label: '🇪🇺 Europe', sub: 'Multiple Countries' },
+      ],
+    },
+    {
+      label: 'Certifications',
+      value: 30,
+      suffix: '+',
+      items: [
+        { label: 'CySA+, Sec+, CSAP', sub: 'CompTIA' },
+        { label: 'CCNP ENCOR, CCNA', sub: 'Cisco' },
+        { label: 'AWS Solutions Architect', sub: 'Amazon Web Services' },
+        { label: 'NASA Open Science', sub: 'NASA' },
+        { label: 'MSc Cybersecurity (in progress)', sub: 'Holy Angel University' },
+        { label: '+ 25 more across domains', sub: 'Cloud · GRC · Forensics · AI' },
+      ],
+    },
+    {
+      label: 'Projects Done',
+      value: 10,
+      suffix: '',
+      items: [
+        { label: 'Reverse Engineering & Malware Analysis', sub: 'Security Research' },
+        { label: 'SOAR Workflow Engineering', sub: 'Detection Engineering' },
+        { label: 'AI-Assisted Security Automation', sub: 'AI Security' },
+        { label: 'Cloud Security Attack Path Analysis', sub: 'Cloud Security' },
+        { label: 'Active Directory Attack Simulation', sub: 'Security Research' },
+        { label: 'Enterprise Network Architecture', sub: 'Network Architecture' },
+      ],
+    },
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -58,10 +122,7 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-3">
-                  <div className="relative hidden sm:flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-blue-800/10 dark:bg-[#9a3412]/10 border border-blue-800/30 dark:border-[#9a3412]/30 shadow-[0_0_25px_rgba(30,64,175,0.4)] dark:shadow-[0_0_25px_rgba(154,52,18,0.4)] shrink-0">
-                    <Shield className="text-blue-800 dark:text-[#9a3412] w-6 h-6 sm:w-8 sm:h-8" />
-                  </div>
-                  <h1 className="font-display text-[clamp(2rem,6vw,5rem)] leading-[0.9] tracking-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 dark:from-[#f59e0b] via-blue-700 dark:via-[#ea580c] to-blue-500 dark:to-[#ef4444] drop-shadow-[0_0_15px_rgba(245,158,11,0.4)] truncate">
+                  <h1 className="font-display text-[clamp(2rem,6vw,5rem)] leading-[0.9] tracking-tight font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 truncate tracking-tighter opacity-[0.85]">
                     Austin BC
                   </h1>
                 </motion.div>
@@ -120,26 +181,32 @@ export default function Hero() {
           <motion.div variants={itemVariants} className="w-full mb-10">
             <div className="bg-slate-200 dark:bg-[#1e1e1e] border border-slate-200 dark:border-[#333333] rounded-xl overflow-hidden shadow-2xl relative">
               {/* Terminal Header */}
-              <div className="bg-slate-300 dark:bg-[#2d2d2d] px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-[#333333]">
-                <div className="flex gap-1.5">
+              <div className="bg-slate-300 dark:bg-[#2d2d2d] px-4 py-2.5 flex items-center justify-center border-b border-slate-200 dark:border-[#333333] relative">
+                <div className="flex gap-1.5 absolute left-4">
                   <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
                   <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
                   <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
                 </div>
-                <div className="flex-1 text-center font-mono text-xs text-slate-600 dark:text-[#a8a29e] opacity-80">
-                  austin@security-engineer:~
+                <div className="font-mono text-[13px] text-slate-600 dark:text-[#a8a29e] opacity-80">
+                  austin@about-me:~
                 </div>
               </div>
               {/* Terminal Body */}
               <div className="p-6 font-mono text-sm leading-relaxed text-slate-600 dark:text-[#a8a29e] space-y-4 relative">
-                <p>
-                  I am a Security Engineer working at the intersection of cloud infrastructure, enterprise networks, and system architecture which I am currently augmenting on AI Implications and Machine Learning. I have supported clients across USA, Canada, Europe, India, Australia, and Philippines, working across MSPs, Enterprises, BPOs, Consulting firms, and critical sectors such as Healthcare, Finance, Energy Grids, and Defense.
+                <p className="text-[0.85rem] italic text-slate-500 dark:text-[#78716c] border-l-2 border-blue-500 dark:border-[#f59e0b]/60 pl-3 leading-relaxed tracking-wide">
+                  "Security is a human problem dressed in technical clothing. That belief shapes everything I do. My work lives where technical complexity meets real world consequence."
                 </p>
                 <p>
-                  I am also about to finish my MSc in Cybersecurity and my Postgraduate in Governance, Risk, and Compliance along with DataCamp's entire platform with a Full-Scholarship Grant, all while holding 30+ industry-standard certifications with the top vendors in the globe. Despite a deep technical map, my roots are in the humanities. I believe the best engineers are also unique thinkers and strong communicators.
+                  I am a Security Engineer with expertise across Infrastructure & System Architecture, Threat Intelligence, Digital Forensics, Offensive Security, and Governance, Risk, and Compliance which I am currently extending on secure AI Systems and Robust Machine Learning workflows in adversarial contexts. I have advised clients across the US, UK, Canada, Europe, Australia, and the Philippines, working with MSPs, Consulting Firms, BPOs, and critical sectors where failures are consequential: Healthcare, Finance, Energy Grids, and Defense.
+                </p>
+                <p>
+                  I hold 30+ certifications from the world's top vendors and I am currently completing an MSc in Cybersecurity and a Postgraduate in Governance, Risk and Compliance, while finishing DataCamp's platforms on a full scholarship grant.
+                </p>
+                <p>
+                  My background in the humanities is not incidental. It is the reason I can translate complexity into clarity and technical risk into decisions that leadership can act on. The best engineers are also rigorous thinkers and sharp communicators, and that is the standard I hold myself to.
                 </p>
                 <p className="text-emerald-600 dark:text-[#10b981] font-medium">
-                  Open to roles in but not limited to: Security Engineering, Enterprise Architecture (Networks & Systems), Full-Stack Development, Digital Forensics and Cyber Intelligence globally.<motion.span
+                  Open to roles in but not limited to: Security Engineering, Enterprise Architecture (Networks & Systems), Full-Stack Development, Digital Forensics and Threat Intelligence globally.<motion.span
                     animate={{ opacity: [1, 0] }}
                     transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
                     className="inline-block w-2 h-4 bg-emerald-600 dark:bg-[#10b981] ml-1 align-middle translate-y-[-1px]"
@@ -151,19 +218,113 @@ export default function Hero() {
 
           {/* Stats */}
           <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10 w-full">
-            {[
-              { label: 'Years Experience', value: 5, suffix: '+' },
-              { label: 'Countries Served', value: 6, suffix: '+' },
-              { label: 'Certifications', value: 30, suffix: '+' },
-              { label: 'Projects Done', value: 10, suffix: '' },
-            ].map((stat, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-6 rounded-2xl bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] shadow-[0_0_20px_rgba(29,78,216,0.15)] dark:shadow-[0_0_20px_rgba(234,88,12,0.15)] hover:shadow-[0_0_30px_rgba(29,78,216,0.3)] dark:hover:shadow-[0_0_30px_rgba(234,88,12,0.3)] transition-all duration-300 group">
-                <span className="font-display text-[clamp(2.5rem,5vw,3.5rem)] font-black text-slate-900 dark:text-[#f3f4f6] group-hover:text-blue-700 dark:group-hover:text-[#ea580c] transition-colors">
-                  <CountUp end={stat.value} duration={2.5} />{stat.suffix}
-                </span>
-                <span className="font-body text-sm text-slate-600 dark:text-[#a8a29e] mt-2">{stat.label}</span>
-              </div>
-            ))}
+            {statDetails.map((stat, i) => {
+              const isActive = activeStatDetail === i;
+              return (
+                <div
+                  key={i}
+                  className={`relative flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-slate-200 dark:bg-[#1c1917] border transition-all duration-300 group cursor-pointer select-none overflow-hidden
+                    ${isActive
+                      ? 'border-blue-500 dark:border-[#f59e0b]/70 shadow-[0_0_30px_rgba(29,78,216,0.35)] dark:shadow-[0_0_30px_rgba(234,88,12,0.35)]'
+                      : 'border-slate-300 dark:border-[#292524] shadow-[0_0_20px_rgba(29,78,216,0.15)] dark:shadow-[0_0_20px_rgba(234,88,12,0.15)] hover:shadow-[0_0_30px_rgba(29,78,216,0.3)] dark:hover:shadow-[0_0_30px_rgba(234,88,12,0.3)] hover:border-blue-500 dark:hover:border-[#f59e0b]/60'
+                    }`}
+                  onClick={() => setActiveStatDetail(isActive ? null : i)}
+                >
+                  {/* Card content — blurs when active */}
+                  <div className={`flex flex-col items-center transition-all duration-300 ${isActive ? 'blur-sm opacity-20 pointer-events-none' : ''}`}>
+                    <span className="font-display text-[clamp(2.5rem,5vw,3.5rem)] font-black text-slate-900 dark:text-[#f3f4f6] group-hover:text-blue-700 dark:group-hover:text-[#ea580c] transition-colors">
+                      <CountUp end={stat.value} duration={2.5} />{stat.suffix}
+                    </span>
+                    <span className="font-body text-sm text-slate-600 dark:text-[#a8a29e] mt-2">{stat.label}</span>
+                    {/* Centered hover hint */}
+                    <span className="mt-3 text-[10px] font-mono tracking-wide text-blue-500 dark:text-[#f59e0b] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      View more details
+                    </span>
+                  </div>
+
+                  {/* Overlay detail panel — fills the card */}
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-0 z-10 flex flex-col p-4 rounded-2xl bg-slate-100/90 dark:bg-[#1c1917]/95 backdrop-blur-sm"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        {/* X close */}
+                        <button
+                          onClick={() => setActiveStatDetail(null)}
+                          className="absolute top-2.5 right-3 text-slate-500 dark:text-[#a8a29e] hover:text-blue-600 dark:hover:text-[#f59e0b] transition-colors text-sm font-bold leading-none"
+                        >
+                          ✕
+                        </button>
+
+                        {/* Label */}
+                        <p className="text-[10px] font-mono uppercase tracking-widest text-blue-600 dark:text-[#f59e0b] mb-2.5 mt-0.5">{stat.label}</p>
+
+                        {/* List */}
+                        <ul className="space-y-1.5 overflow-y-auto flex-1">
+                          {stat.items.map((item, j) => (
+                            <li key={j} className="flex flex-col text-left">
+                              <span className="text-[11px] font-semibold text-slate-800 dark:text-[#f3f4f6] leading-tight">{item.label}</span>
+                              {item.sub && <span className="text-[10px] text-slate-500 dark:text-[#78716c] leading-tight">{item.sub}</span>}
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </motion.div>
+
+          {/* Marquee Strip */}
+          <motion.div 
+            variants={itemVariants} 
+            className="w-[110%] -left-[5%] relative overflow-hidden group mb-12 py-5 border-y border-blue-600/80 dark:border-orange-950 shadow-[0_0_15px_rgba(37,99,235,0.2)] dark:shadow-[0_0_20px_rgba(67,20,7,0.5)] bg-slate-200 dark:bg-[#1e1e1e]"
+            style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+          >
+            <style>{`
+              @keyframes scroll-left {
+                from { transform: translateX(0); }
+                to { transform: translateX(-50%); }
+              }
+              .animate-marquee {
+                animation: scroll-left 45s linear infinite;
+              }
+              .group:hover .animate-marquee {
+                animation-play-state: paused;
+              }
+            `}</style>
+
+            <div className="flex w-max animate-marquee items-center gap-4">
+              {[...marqueeLogos, ...marqueeLogos].map((logo, index) => {
+                const needsWhiteBg = logo.name === 'Fortinet' || logo.name === 'Qualys' || logo.name === 'Amazon AWS';
+                return (
+                  <div key={index} className={`flex-none flex items-center justify-center ${needsWhiteBg ? 'px-2 sm:px-4 mx-2 sm:mx-4' : 'px-4 sm:px-8'}`}>
+                    <div className={`transition-all duration-300 flex items-center justify-center ${needsWhiteBg ? 'dark:bg-slate-200/80 dark:px-4 dark:py-2.5 dark:rounded-xl dark:shadow-sm backdrop-blur-sm hover:scale-105' : ''}`}>
+                      <img
+                        src={logo.url}
+                        alt={logo.name}
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          target.style.display = 'none';
+                          if (target.parentElement && target.parentElement.parentElement) {
+                            target.parentElement.parentElement.style.display = 'none';
+                          }
+                        }}
+                        className={`object-contain w-auto opacity-75 transition-all duration-300 hover:opacity-100 ${needsWhiteBg ? '' : 'hover:scale-[1.15]'}
+                          ${logo.name === 'NASA' ? 'h-14 sm:h-[4.5rem] scale-110' : 'h-10 sm:h-12'}
+                        `}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </motion.div>
 
           {/* Notable Achievements Grid */}

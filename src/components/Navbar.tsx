@@ -74,10 +74,7 @@ export default function Navbar({ activeSection }: { activeSection: string }) {
             onClick={(e) => handleScroll(e, '#home')}
             className="flex items-center gap-2 group"
           >
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600/10 dark:bg-[#f59e0b]/10 border border-blue-600/30 dark:border-[#f59e0b]/30 shadow-[0_0_15px_rgba(37,99,235,0.3)] dark:shadow-[0_0_15px_rgba(245,158,11,0.3)] group-hover:shadow-[0_0_25px_rgba(37,99,235,0.6)] dark:group-hover:shadow-[0_0_25px_rgba(245,158,11,0.6)] transition-all duration-300">
-              <Shield size={18} className="text-blue-600 dark:text-[#f59e0b]" />
-            </div>
-            <span className="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-[#f3f4f6] group-hover:text-blue-600 dark:group-hover:text-[#f59e0b] drop-shadow-[0_0_8px_rgba(37,99,235,0.5)] dark:drop-shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-300">
+            <span className="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-[#f3f4f6] group-hover:text-blue-600 dark:group-hover:text-[#f59e0b] opacity-[0.85] transition-all duration-300">
               Austin BC
             </span>
           </a>
