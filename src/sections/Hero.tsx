@@ -122,8 +122,9 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-3">
-                  <h1 className="font-display text-[clamp(2rem,6vw,5rem)] leading-[0.9] tracking-tight font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 truncate tracking-tighter opacity-[0.85]">
-                    Austin BC
+                  <h1 className="font-display text-[clamp(2rem,6vw,5rem)] leading-[0.9] tracking-[-0.02em] text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 truncate opacity-[0.85]">
+                    <span className="font-semibold">Austin</span>{' '}
+                    <span className="font-extrabold tracking-[-0.04em]">BC</span>
                   </h1>
                 </motion.div>
 
