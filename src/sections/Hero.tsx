@@ -170,7 +170,7 @@ export default function Hero() {
               <span className="text-blue-600 dark:text-[#f97316] font-bold">AI Security Engineer</span> • micro1
             </div>
             <div className="px-4 py-1.5 rounded-full bg-slate-200 dark:bg-[#1c1917] border border-blue-600 dark:border-[#f97316]/40 shadow-[0_0_20px_rgba(37,99,235,0.25)] dark:shadow-[0_0_20px_rgba(249,115,22,0.25)] font-mono text-xs text-slate-600 dark:text-[#a8a29e] whitespace-nowrap hover:border-blue-600 dark:hover:border-[#f97316]/60 transition-colors">
-              <span className="text-blue-600 dark:text-[#f97316] font-bold">Cloud Security Engineer</span> • Trusted Tech
+              <span className="text-blue-600 dark:text-[#f97316] font-bold">Cloud Security Engineer</span> • Microsoft SP:TT
             </div>
             <div className="px-4 py-1.5 rounded-full bg-slate-200 dark:bg-[#1c1917] border border-blue-600 dark:border-[#f97316]/40 shadow-[0_0_20px_rgba(37,99,235,0.25)] dark:shadow-[0_0_20px_rgba(249,115,22,0.25)] font-mono text-xs text-slate-600 dark:text-[#a8a29e] whitespace-nowrap hover:border-blue-600 dark:hover:border-[#f97316]/60 transition-colors">
               <span className="text-blue-600 dark:text-[#f97316] font-bold">Founder</span> • Silicon Barracks
