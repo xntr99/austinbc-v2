@@ -122,15 +122,14 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-3">
-                  <h1 className="font-display text-[clamp(3rem,6vw,5rem)] leading-[1.05] tracking-[-0.02em] text-slate-900 dark:text-[#f2f2f2] truncate items-center flex">
-                    <span className="font-semibold">Austin</span>
-                    <span className="font-bold ml-2 -ml-[0.02em] tracking-[-0.04em]">BC</span>
+                  <h1 className="font-display text-[clamp(2rem,6vw,5rem)] leading-[0.9] tracking-tight font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 truncate tracking-tighter opacity-[0.85]">
+                    Austin BC
                   </h1>
                 </motion.div>
 
                 <motion.h2
                   variants={itemVariants}
-                  className="font-body font-medium text-xs sm:text-lg md:text-xl text-slate-600 dark:text-[#a8a29e] line-clamp-2 sm:line-clamp-none"
+                  className="font-body text-xs sm:text-lg md:text-xl text-slate-600 dark:text-[#a8a29e] line-clamp-2 sm:line-clamp-none"
                 >
                   Security Engineer • IT Consultant • Developer • Ethical Hacker
                 </motion.h2>
