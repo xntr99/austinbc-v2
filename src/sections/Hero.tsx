@@ -100,7 +100,7 @@ export default function Hero() {
           <div className="flex flex-row items-start sm:items-end justify-between gap-4 sm:gap-6 xl:gap-8 mb-8 w-full">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 min-w-0">
               <motion.div variants={itemVariants} className="shrink-0">
-                <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-slate-300 dark:border-[#292524] shadow-[0_0_30px_rgba(37,99,235,0.3)] dark:shadow-[0_0_30px_rgba(245,158,11,0.3)] relative group">
+                <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-slate-300 dark:border-[#292524] relative group">
                   <img
                     src="/austin.jpg"
                     alt="Austin BC"
