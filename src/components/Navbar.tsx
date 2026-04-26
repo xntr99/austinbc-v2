@@ -10,7 +10,8 @@ const navLinks = [
   { name: 'Experience', href: '#experience', icon: Briefcase },
   { name: 'Projects', href: '#projects', icon: Code },
   { name: 'Skills', href: '#skills', icon: Award },
-  { name: 'Certs & Education', href: '#certifications', icon: GraduationCap },
+  { name: 'Certifications', href: '#certifications', icon: Award },
+  { name: 'Education', href: '#education', icon: GraduationCap },
   { name: 'Contact', href: '#contact', icon: Mail },
 ];
 
@@ -68,19 +69,21 @@ export default function Navbar({ activeSection }: { activeSection: string }) {
       />
 
       <nav className="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-[#0c0a09]/80 backdrop-blur-md border-b border-slate-200 dark:border-[#292524] transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="navbar-container">
+          
+          {/* Left: Logo */}
           <a 
             href="#home" 
             onClick={(e) => handleScroll(e, '#home')}
-            className="flex items-center gap-2 group"
+            className="navbar-logo group"
           >
-            <span className="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-[#f3f4f6] group-hover:text-blue-600 dark:group-hover:text-[#f59e0b] opacity-[0.85] transition-all duration-300">
+            <span className="font-display font-bold whitespace-nowrap tracking-tight text-slate-900 dark:text-[#f3f4f6] group-hover:text-blue-600 dark:group-hover:text-[#f59e0b] opacity-90 transition-all duration-300">
               Austin BC
             </span>
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          {/* Center: Nav Tabs — visible on tablet+ (>=640px), proportionally scaled */}
+          <div className="navbar-links">
             {navLinks.map((link, index) => {
               const isActive = activeSection === link.href.replace('#', '');
               const v = navColorVariants[index % 6];
@@ -90,7 +93,7 @@ export default function Navbar({ activeSection }: { activeSection: string }) {
                   href={link.href}
                   onClick={(e) => handleScroll(e, link.href)}
                   className={twMerge(
-                    "font-heading text-sm uppercase tracking-wider transition-all duration-300 relative py-2",
+                    "navbar-link",
                     isActive ? v.text : "text-slate-500 hover:text-slate-900 dark:text-[#a8a29e] dark:hover:text-[#f3f4f6]"
                   )}
                 >
@@ -106,46 +109,40 @@ export default function Navbar({ activeSection }: { activeSection: string }) {
                 </a>
               );
             })}
-            <div className="pl-4 border-l border-slate-200 dark:border-[#292524] flex items-center gap-4">
-              <button 
-                onClick={toggleTheme}
-                className="p-2 rounded-full text-slate-600 hover:bg-slate-100 dark:text-[#a8a29e] dark:hover:bg-[#1c1917] transition-colors"
-                aria-label="Toggle theme"
-              >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-              <WorldClock />
-            </div>
           </div>
 
-          {/* Mobile Actions */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <button 
-              onClick={toggleTheme}
-              className="p-2 rounded-full text-slate-600 hover:bg-slate-100 dark:text-[#a8a29e] dark:hover:bg-[#1c1917] transition-colors"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            <button
-              className="text-slate-900 dark:text-[#f3f4f6] p-2"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          {/* Right: World Clock + Theme + Hamburger */}
+          <div className="navbar-actions">
+            <WorldClock />
+
+            <div className="navbar-actions-btns">
+              <button 
+                onClick={toggleTheme}
+                className="navbar-theme-btn"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun className="navbar-icon" /> : <Moon className="navbar-icon" />}
+              </button>
+              
+              {/* Hamburger: only visible on phones (<640px) */}
+              <button
+                className="navbar-hamburger"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="navbar-icon" /> : <Menu className="navbar-icon" />}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Mobile Nav Dropdown — only for phones */}
         <motion.div
           initial={false}
           animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-          className="lg:hidden overflow-hidden bg-white/95 dark:bg-[#0c0a09]/95 backdrop-blur-xl border-b border-slate-200 dark:border-[#292524]"
+          className="navbar-mobile-menu"
         >
           <div className="px-6 py-4 flex flex-col gap-4">
-            <div className="pb-4 mb-2 border-b border-slate-200 dark:border-[#292524] flex justify-center">
-              <WorldClock />
-            </div>
             {navLinks.map((link, index) => {
               const isActive = activeSection === link.href.replace('#', '');
               const v = navColorVariants[index % 6];

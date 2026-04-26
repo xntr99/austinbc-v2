@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import CanvasBackground from './components/CanvasBackground';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import Experience from './sections/Experience';
-import Projects from './sections/Projects';
-import Skills from './sections/Skills';
-import Certifications from './sections/Certifications';
-import Contact from './sections/Contact';
-import Footer from './components/Footer';
+const Projects = lazy(() => import('./sections/Projects'));
+const Skills = lazy(() => import('./sections/Skills'));
+const Certifications = lazy(() => import('./sections/Certifications'));
+const Contact = lazy(() => import('./sections/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -53,21 +53,31 @@ export default function App() {
           <Experience />
         </div>
         <div ref={projRef} id="projects-section">
-          <Projects />
+          <Suspense fallback={null}>
+            <Projects />
+          </Suspense>
         </div>
         <div ref={skillsRef} id="skills-section">
-          <Skills />
+          <Suspense fallback={null}>
+            <Skills />
+          </Suspense>
         </div>
         <div ref={certsRef} id="certifications-section">
-          <Certifications />
+          <Suspense fallback={null}>
+            <Certifications />
+          </Suspense>
         </div>
         <div ref={contactRef} id="contact-section">
-          <Contact />
+          <Suspense fallback={null}>
+            <Contact />
+          </Suspense>
         </div>
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

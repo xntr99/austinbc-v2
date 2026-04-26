@@ -53,26 +53,25 @@ export default function WorldClock() {
   });
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative clock-wrapper">
       {/* Clock Button */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-slate-200 dark:bg-[#1c1917] border border-slate-300 dark:border-[#292524] rounded-full shadow-[0_0_25px_rgba(16,185,129,0.15)] hover:border-[#10b981]/50 transition-colors group"
+        className="clock-btn"
       >
-        <Globe size={14} className="text-[#10b981] shrink-0" />
-        <div className="flex flex-col text-left">
-          <span className="text-[9px] font-mono text-slate-600 dark:text-[#a8a29e] leading-none mb-0.5 tracking-wider uppercase">
+        <Globe className="clock-globe" />
+        <div className="clock-text-col">
+          <span className="clock-label">
             {selected.label} ({selected.code})
           </span>
-          <div className="flex items-center gap-1.5 leading-none">
-            <span className="text-xs font-mono text-[#10b981] font-medium">{timeString}</span>
-            <span className="text-slate-400 dark:text-[#292524] text-[10px]">•</span>
-            <span className="text-xs font-mono text-slate-600 dark:text-[#a8a29e]">{dateString}</span>
+          <div className="clock-time-row">
+            <span className="clock-time">{timeString}</span>
+            <span className="clock-sep">•</span>
+            <span className="clock-date">{dateString}</span>
           </div>
         </div>
         <ChevronDown
-          size={12}
-          className={`text-slate-500 dark:text-[#a8a29e] transition-transform duration-200 shrink-0 ${open ? 'rotate-180' : ''}`}
+          className={`clock-chevron ${open ? 'rotate-180' : ''}`}
         />
       </button>
 

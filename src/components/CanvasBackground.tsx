@@ -14,9 +14,12 @@ export default function CanvasBackground() {
     let particles: Particle[] = [];
     const particleCount = 100;
     const connectionDistance = 150;
+    const connectionDistanceSq = connectionDistance * connectionDistance;
     const baseSpeed = 0.2;
     let currentSpeedMultiplier = 1;
     let targetSpeedMultiplier = 1;
+    let isDocumentVisible = !document.hidden;
+    let mouseTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     let mouse = { x: -1000, y: -1000 };
 
@@ -92,19 +95,14 @@ export default function CanvasBackground() {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < connectionDistance) {
+          const distanceSq = dx * dx + dy * dy;
+          if (distanceSq < connectionDistanceSq) {
+            const distance = Math.sqrt(distanceSq);
             const opacity = (1 - distance / connectionDistance) * 0.2;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            
-            const grad = ctx.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
-            grad.addColorStop(0, `rgba(${particles[i].color}, ${opacity})`);
-            grad.addColorStop(1, `rgba(${particles[j].color}, ${opacity})`);
-            
-            ctx.strokeStyle = grad;
+            ctx.strokeStyle = `rgba(${particles[i].color}, ${opacity})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -112,8 +110,9 @@ export default function CanvasBackground() {
 
         const dxMouse = particles[i].x - mouse.x;
         const dyMouse = particles[i].y - mouse.y;
-        const distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-        if (distanceMouse < connectionDistance) {
+        const distanceMouseSq = dxMouse * dxMouse + dyMouse * dyMouse;
+        if (distanceMouseSq < connectionDistanceSq) {
+          const distanceMouse = Math.sqrt(distanceMouseSq);
           const opacity = (1 - distanceMouse / connectionDistance) * 0.3;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
@@ -127,6 +126,10 @@ export default function CanvasBackground() {
 
     const animate = () => {
       if (!ctx) return;
+      if (!isDocumentVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       currentSpeedMultiplier += (targetSpeedMultiplier - currentSpeedMultiplier) * 0.05;
@@ -145,8 +148,10 @@ export default function CanvasBackground() {
       mouse.y = e.clientY;
       targetSpeedMultiplier = 3; 
       
-      clearTimeout((window as any).mouseTimeout);
-      (window as any).mouseTimeout = setTimeout(() => {
+      if (mouseTimeoutId) {
+        clearTimeout(mouseTimeoutId);
+      }
+      mouseTimeoutId = setTimeout(() => {
         targetSpeedMultiplier = 1;
       }, 100);
     };
@@ -157,9 +162,14 @@ export default function CanvasBackground() {
       targetSpeedMultiplier = 1;
     };
 
+    const handleVisibilityChange = () => {
+      isDocumentVisible = !document.hidden;
+    };
+
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((m) => {
@@ -177,6 +187,10 @@ export default function CanvasBackground() {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (mouseTimeoutId) {
+        clearTimeout(mouseTimeoutId);
+      }
       observer.disconnect();
       cancelAnimationFrame(animationFrameId);
     };

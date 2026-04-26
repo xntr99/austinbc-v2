@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as SimpleIcons from 'simple-icons';
+import { slimIcons } from '../data/slimIcons';
 import { Shield, Lock, Network, Server, Cloud, Cpu, Code, Wrench, Database, Terminal } from 'lucide-react';
 
 // Helper to get SimpleIcon SVG path
 const getIconPath = (slug: string) => {
-  const icon = (SimpleIcons as any)[`si${slug.charAt(0).toUpperCase() + slug.slice(1)}`];
-  return icon ? icon.path : null;
+  return slimIcons[slug] || null;
 };
 
 const skillCategories = [
@@ -190,7 +189,7 @@ export default function Skills() {
         </motion.div>
 
         {/* 3x2 Grid for Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           {skillCategories.map((category, catIndex) => {
             const CategoryIcon = category.icon;
             const v = skillVariants[catIndex % 6];
@@ -204,7 +203,7 @@ export default function Skills() {
                 viewport={{ once: true }}
                 transition={{ delay: catIndex * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="relative group cursor-pointer h-64"
+                className="relative group cursor-pointer h-40 sm:h-64"
                 onMouseEnter={() => setHoveredCategory(category.title)}
                 onMouseLeave={() => setHoveredCategory(null)}
                 onClick={() => setSelectedCategory(category)}
@@ -220,16 +219,16 @@ export default function Skills() {
                 />
 
                 {/* Content */}
-                <div className="relative h-full p-8 flex flex-col items-center justify-center text-center">
+                <div className="relative h-full p-3 sm:p-8 flex flex-col items-center justify-center text-center">
                   <div 
-                    className={`mb-6 p-4 rounded-2xl bg-slate-300 dark:bg-[#292524]/50 transition-transform duration-500 group-hover:scale-110 ${v.text}`}
+                    className={`mb-3 sm:mb-6 p-2.5 sm:p-4 rounded-2xl bg-slate-300 dark:bg-[#292524]/50 transition-transform duration-500 group-hover:scale-110 ${v.text}`}
                   >
-                    <CategoryIcon size={48} />
+                    <CategoryIcon size={32} />
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-[#f3f4f6] mb-2">
+                  <h3 className="font-display text-base sm:text-2xl font-bold text-slate-900 dark:text-[#f3f4f6] mb-1 sm:mb-2">
                     {category.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-[#a8a29e] text-sm font-mono">
+                  <p className="text-slate-600 dark:text-[#a8a29e] text-[0.65rem] sm:text-sm font-mono line-clamp-1">
                     {category.skills.length} Specialized Skills
                   </p>
                   
@@ -291,7 +290,7 @@ export default function Skills() {
 
               {/* Modal Body - Skills Grid */}
               <div className="flex-1 overflow-y-auto p-6 sm:p-8 custom-scrollbar">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
                   {selectedCategory.skills.map((skill, skillIndex) => {
                     const isSimpleIcon = typeof skill.icon === 'string';
                     const IconComponent = !isSimpleIcon ? skill.icon : null;
@@ -305,7 +304,7 @@ export default function Skills() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: skillIndex * 0.05 }}
-                        className={`relative p-4 rounded-xl border transition-all duration-300 cursor-pointer group ${
+                        className={`relative p-2.5 sm:p-4 rounded-xl border transition-all duration-300 cursor-pointer group ${
                           isActive 
                             ? `bg-slate-300/80 dark:bg-[#292524]/80 ${v.activeBorder} lg:scale-[1.02] shadow-lg ${v.activeShadow}` 
                             : 'bg-slate-200/50 dark:bg-[#1c1917]/50 border-slate-300 dark:border-[#292524] hover:border-slate-500 hover:dark:border-white/20'
@@ -330,7 +329,7 @@ export default function Skills() {
                               <div className="w-2 h-2 rounded-full bg-current" />
                             )}
                           </div>
-                          <span className={`font-bold text-sm transition-colors ${
+                          <span className={`font-bold text-[0.8rem] sm:text-sm transition-colors ${
                             isActive ? (v.text || 'text-blue-600 dark:text-[#f59e0b]') : `text-slate-700 dark:text-[#d1d5db] group-hover:text-blue-600 dark:group-hover:text-[#f59e0b]`
                           }`}>
                             {skill.name}

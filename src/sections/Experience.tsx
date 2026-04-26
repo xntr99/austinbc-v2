@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Cloud, Server, Network, Building2, X, ArrowRight } from 'lucide-react';
 
@@ -119,7 +119,7 @@ export default function Experience() {
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 dark:from-[#f59e0b] via-blue-700 dark:via-[#ea580c] to-blue-500 dark:to-[#ef4444]" />
         </motion.div>
 
-        <div className="relative border-l border-blue-600 dark:border-blue-600/30 dark:border-[#f59e0b]/30 ml-4 md:ml-8 space-y-8">
+        <div className="relative border-l-0 md:border-l border-blue-600 dark:border-blue-600/30 dark:border-[#f59e0b]/30 ml-0 md:ml-8 grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-8">
           {experiences.map((exp, index) => {
             const Icon = exp.icon;
             const variants = [
@@ -175,24 +175,22 @@ export default function Experience() {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative pl-8 md:pl-12 group cursor-pointer"
-                onClick={() => setSelectedExp(exp)}
-              >
-                {/* Timeline Node */}
+                transition={{ delay: index * 0.1 }} className="relative pl-0 md:pl-12 group cursor-pointer" onClick={() => setSelectedExp(exp)} >
                 <div 
-                  className={`absolute -left-[5px] top-8 w-2.5 h-2.5 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.8)] group-hover:scale-150 transition-transform duration-300 ${v.node}`} 
+                  className={`hidden md:block absolute -left-[5px] top-8 w-2.5 h-2.5 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.8)] group-hover:scale-150 transition-transform duration-300 ${v.node}`} 
                 />
 
-                <div className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] ${v.hoverBorder} rounded-xl p-6 flex flex-col md:flex-row gap-6 lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 transition-all duration-300`}>
+                <div className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] ${v.hoverBorder} rounded-xl p-3.5 sm:p-6 flex flex-col gap-3 sm:gap-6 lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 transition-all duration-300 h-full`}>
                   
                   {/* Icon/Logo Box */}
-                  <div className="shrink-0">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center lg:group-hover:scale-110 transition-all duration-300 overflow-hidden ${v.logoBg} ${v.logoText} group-hover:bg-slate-400/20 dark:group-hover:bg-white/10`}>
+                  <div className="shrink-0 flex items-center justify-center sm:justify-start">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center lg:group-hover:scale-110 transition-all duration-300 overflow-hidden ${v.logoBg} ${v.logoText} group-hover:bg-slate-400/20 dark:group-hover:bg-white/10`}>
                       {exp.logo ? (
                         <img 
                           src={exp.logo} 
                           alt={exp.company} 
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
                           onError={(e) => {
@@ -212,11 +210,11 @@ export default function Experience() {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
                       <div>
                         <h3 
-                          className={`font-heading text-xl font-bold text-slate-900 dark:text-[#f3f4f6] mb-1 transition-colors ${v.titleHover}`} 
+                          className={`font-heading text-base sm:text-xl font-bold text-slate-900 dark:text-[#f3f4f6] mb-1 transition-colors ${v.titleHover} leading-tight line-clamp-2 sm:line-clamp-none`} 
                         >
                           {exp.role}
                         </h3>
-                        <div className="text-slate-600 dark:text-[#a8a29e] text-sm">
+                        <div className="text-slate-600 dark:text-[#a8a29e] text-[0.7rem] sm:text-sm line-clamp-1 sm:line-clamp-none">
                           {exp.company}
                         </div>
                       </div>
@@ -234,11 +232,11 @@ export default function Experience() {
                     </div>
 
                     {/* Badges */}
-                    <div className="flex flex-wrap gap-2">
-                      <span className="font-mono text-[10px] px-2.5 py-1 bg-[#ef4444]/10 dark:bg-[#ef4444]/10 text-red-600 dark:text-[#f87171] rounded border border-red-500/20 dark:border-[#ef4444]/20">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      <span className="font-mono text-[9px] sm:text-[10px] px-2 py-0.5 sm:py-1 bg-[#ef4444]/10 dark:bg-[#ef4444]/10 text-red-600 dark:text-[#f87171] rounded border border-red-500/20 dark:border-[#ef4444]/20">
                         {exp.type}
                       </span>
-                      <span className="font-mono text-[10px] px-2.5 py-1 bg-slate-300 dark:bg-white/5 text-slate-700 dark:text-[#a8a29e] rounded border border-slate-400 dark:border-white/10">
+                      <span className="font-mono text-[9px] sm:text-[10px] px-2 py-0.5 sm:py-1 bg-slate-300 dark:bg-white/5 text-slate-700 dark:text-[#a8a29e] rounded border border-slate-400 dark:border-white/10">
                         {exp.location}
                       </span>
                     </div>

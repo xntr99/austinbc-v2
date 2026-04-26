@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CountUp from 'react-countup';
-import { Github, Linkedin, Mail, GraduationCap, Trophy, Shield, BookOpen, Network, Cloud, Cpu } from 'lucide-react';
+import { Github, Linkedin, Mail, GraduationCap, Trophy, Shield, BookOpen, Network, Cloud, Cpu, X } from 'lucide-react';
 
 import { vendorLogos } from '../data/vendorLogos';
 
 const marqueeLogos = vendorLogos.map(vendor => ({
   name: vendor.name,
   url: vendor.logoUrl || vendor.fallbackUrl,
-  // Wikimedia SVGs are colorful, so we treat them as 'not white' to get the nice grayscale-to-color hover effect
-  isWhite: false,
 }));
+
+const pickLogo = (name: string) => marqueeLogos.find((logo) => logo.name === name);
+const topRowPriorityNames = ['Microsoft', 'Google', 'NASA', 'CompTIA', 'Cisco', 'Amazon AWS'];
+const topRowLogos = topRowPriorityNames
+  .map(pickLogo)
+  .filter((logo): logo is { name: string; url: string } => Boolean(logo));
+
+const topRowNameSet = new Set(topRowLogos.map((logo) => logo.name));
+const bottomRowLogos = marqueeLogos.filter((logo) => !topRowNameSet.has(logo.name));
 
 export default function Hero() {
   const [activeAchievement, setActiveAchievement] = useState<string | null>(null);
@@ -52,7 +59,7 @@ export default function Hero() {
         { label: 'AWS Solutions Architect', sub: 'Amazon Web Services' },
         { label: 'NASA Open Science', sub: 'NASA' },
         { label: 'MSc Cybersecurity (in progress)', sub: 'Holy Angel University' },
-        { label: '+ 25 more across domains', sub: 'Cloud · GRC · Forensics · AI' },
+        { label: '+ 25 more across domains', sub: 'Cloud • GRC • Forensics • AI' },
       ],
     },
     {
@@ -104,6 +111,8 @@ export default function Hero() {
                   <img
                     src="/austin.jpg"
                     alt="Austin BC"
+                    decoding="sync"
+                    fetchpriority="high"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1000&auto=format&fit=crop";
@@ -129,7 +138,7 @@ export default function Hero() {
 
                 <motion.h2
                   variants={itemVariants}
-                  className="font-body text-xs sm:text-lg md:text-xl text-slate-600 dark:text-[#a8a29e] line-clamp-2 sm:line-clamp-none"
+                  className="font-body text-[clamp(0.45rem,2.2vw,1.25rem)] text-slate-600 dark:text-[#a8a29e] whitespace-nowrap"
                 >
                   Security Engineer • IT Consultant • Developer • Ethical Hacker
                 </motion.h2>
@@ -181,19 +190,19 @@ export default function Hero() {
           <motion.div variants={itemVariants} className="w-full mb-10">
             <div className="bg-slate-200 dark:bg-[#1e1e1e] border border-slate-200 dark:border-[#333333] rounded-xl overflow-hidden shadow-2xl relative">
               {/* Terminal Header */}
-              <div className="bg-slate-300 dark:bg-[#2d2d2d] px-4 py-2.5 flex items-center justify-center border-b border-slate-200 dark:border-[#333333] relative">
-                <div className="flex gap-1.5 absolute left-4">
-                  <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                  <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+              <div className="terminal-header bg-slate-300 dark:bg-[#2d2d2d] border-b border-slate-200 dark:border-[#333333]">
+                <div className="terminal-dots">
+                  <div className="terminal-dot bg-[#FF5F56]" />
+                  <div className="terminal-dot bg-[#FFBD2E]" />
+                  <div className="terminal-dot bg-[#27C93F]" />
                 </div>
-                <div className="font-mono text-[13px] text-slate-600 dark:text-[#a8a29e] opacity-80">
+                <div className="terminal-title text-slate-600 dark:text-[#a8a29e]">
                   austin@about-me:~
                 </div>
               </div>
               {/* Terminal Body */}
-              <div className="p-6 font-mono text-sm leading-relaxed text-slate-600 dark:text-[#a8a29e] space-y-4 relative">
-                <p className="text-[0.85rem] italic text-slate-500 dark:text-[#78716c] border-l-2 border-blue-500 dark:border-[#f59e0b]/60 pl-3 leading-relaxed tracking-wide">
+              <div className="terminal-body text-slate-600 dark:text-[#a8a29e] relative text-justify sm:text-left transition-all duration-500">
+                <p className="terminal-quote text-slate-500 dark:text-[#78716c] border-blue-500 dark:border-[#f59e0b]/60">
                   "Security is a human problem dressed in technical clothing. That belief shapes everything I do. My work lives where technical complexity meets real world consequence."
                 </p>
                 <p>
@@ -213,6 +222,7 @@ export default function Hero() {
                   />
                 </p>
               </div>
+
             </div>
           </motion.div>
 
@@ -256,9 +266,9 @@ export default function Hero() {
                         {/* X close */}
                         <button
                           onClick={() => setActiveStatDetail(null)}
-                          className="absolute top-2.5 right-3 text-slate-500 dark:text-[#a8a29e] hover:text-blue-600 dark:hover:text-[#f59e0b] transition-colors text-sm font-bold leading-none"
+                          className="absolute top-2 right-2 text-slate-500 dark:text-[#a8a29e] hover:text-blue-600 dark:hover:text-[#f59e0b] p-1 rounded transition-colors"
                         >
-                          ✕
+                          <X size={14} strokeWidth={2.5} />
                         </button>
 
                         {/* Label */}
@@ -284,53 +294,120 @@ export default function Hero() {
           {/* Marquee Strip */}
           <motion.div 
             variants={itemVariants} 
-            className="w-[110%] -left-[5%] relative overflow-hidden group mb-12 py-5 border-y border-blue-600/80 dark:border-orange-950 shadow-[0_0_15px_rgba(37,99,235,0.2)] dark:shadow-[0_0_20px_rgba(67,20,7,0.5)] bg-slate-200 dark:bg-[#1e1e1e]"
+            className="marquee-group w-[110%] -left-[5%] relative overflow-hidden mb-12 rounded-2xl border border-blue-600/50 dark:border-[#78350f] bg-slate-200/90 dark:bg-[#14110f] shadow-[0_0_25px_rgba(37,99,235,0.18)] dark:shadow-[0_0_35px_rgba(124,45,18,0.45)]"
             style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
           >
-            <style>{`
-              @keyframes scroll-left {
-                from { transform: translateX(0); }
-                to { transform: translateX(-50%); }
-              }
-              .animate-marquee {
-                animation: scroll-left 45s linear infinite;
-              }
-              .group:hover .animate-marquee {
-                animation-play-state: paused;
-              }
-            `}</style>
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-600/60 to-transparent dark:via-[#f59e0b]/60" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent dark:via-[#ea580c]/50" />
+            <div className="py-2.5 border-b border-slate-300/70 dark:border-[#292524]">
+              <p className="text-center font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-slate-600 dark:text-[#a8a29e]">
+                Certifications Across Leading Vendors
+              </p>
+            </div>
 
-            <div className="flex w-max animate-marquee items-center gap-4">
-              {[...marqueeLogos, ...marqueeLogos].map((logo, index) => {
-                const needsWhiteBg = logo.name === 'Fortinet' || logo.name === 'Qualys' || logo.name === 'Amazon AWS';
-                return (
-                  <div key={index} className={`flex-none flex items-center justify-center ${needsWhiteBg ? 'px-2 sm:px-4 mx-2 sm:mx-4' : 'px-4 sm:px-8'}`}>
-                    <div className={`transition-all duration-300 flex items-center justify-center ${needsWhiteBg ? 'dark:bg-slate-200/80 dark:px-4 dark:py-2.5 dark:rounded-xl dark:shadow-sm backdrop-blur-sm hover:scale-105' : ''}`}>
-                      <img
-                        src={logo.url}
-                        alt={logo.name}
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          target.style.display = 'none';
-                          if (target.parentElement && target.parentElement.parentElement) {
-                            target.parentElement.parentElement.style.display = 'none';
-                          }
-                        }}
-                        className={`object-contain w-auto opacity-75 transition-all duration-300 hover:opacity-100 ${needsWhiteBg ? '' : 'hover:scale-[1.15]'}
-                          ${logo.name === 'NASA' ? 'h-14 sm:h-[4.5rem] scale-110' : 'h-10 sm:h-12'}
-                        `}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="py-4 sm:py-5 space-y-4">
+              <div className="marquee-lane h-16 sm:h-[4.25rem]">
+                <div className="marquee-track marquee-track-fast">
+                  {topRowLogos.map((logo, index) => {
+                    return (
+                      <div key={`top-a-${index}`} className="flex-none">
+                        <div className="h-14 sm:h-16 px-4 sm:px-5 rounded-xl border border-slate-200 bg-white/95 backdrop-blur-sm flex items-center justify-center transition-all duration-300">
+                          <img
+                            src={logo.url}
+                            alt={logo.name}
+                            loading="eager"
+                            decoding="async"
+                            fetchpriority="high"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = "https://via.placeholder.com/100x40?text=" + logo.name;
+                            }}
+                            className={`object-contain w-auto opacity-85 ${logo.name === 'NASA' ? 'h-10 sm:h-12' : 'h-8 sm:h-10'}`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="marquee-track marquee-track-fast marquee-track-follow">
+                  {topRowLogos.map((logo, index) => {
+                    return (
+                      <div key={`top-b-${index}`} className="flex-none">
+                        <div className="h-14 sm:h-16 px-4 sm:px-5 rounded-xl border border-slate-200 bg-white/95 backdrop-blur-sm flex items-center justify-center transition-all duration-300">
+                          <img
+                            src={logo.url}
+                            alt={logo.name}
+                            loading="eager"
+                            decoding="async"
+                            fetchpriority="high"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = "https://via.placeholder.com/100x40?text=" + logo.name;
+                            }}
+                            className={`object-contain w-auto opacity-85 ${logo.name === 'NASA' ? 'h-10 sm:h-12' : 'h-8 sm:h-10'}`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="marquee-lane h-14 sm:h-16">
+                <div className="marquee-track marquee-track-reverse">
+                  {[...bottomRowLogos, ...bottomRowLogos].map((logo, index) => {
+                    return (
+                      <div key={`bottom-a-${index}`} className="flex-none">
+                        <div className="h-12 sm:h-14 px-3.5 sm:px-4 rounded-lg border border-slate-200 bg-white/95 flex items-center justify-center">
+                          <img
+                            src={logo.url}
+                            alt={logo.name}
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              target.style.display = 'none';
+                              if (target.parentElement && target.parentElement.parentElement) {
+                                target.parentElement.parentElement.style.display = 'none';
+                              }
+                            }}
+                            className={`object-contain w-auto opacity-75 ${logo.name === 'NASA' ? 'h-8 sm:h-9' : 'h-6 sm:h-8'}`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="marquee-track marquee-track-reverse marquee-track-follow-reverse">
+                  {[...bottomRowLogos, ...bottomRowLogos].map((logo, index) => {
+                    return (
+                      <div key={`bottom-b-${index}`} className="flex-none">
+                        <div className="h-12 sm:h-14 px-3.5 sm:px-4 rounded-lg border border-slate-200 bg-white/95 flex items-center justify-center">
+                          <img
+                            src={logo.url}
+                            alt={logo.name}
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              target.style.display = 'none';
+                              if (target.parentElement && target.parentElement.parentElement) {
+                                target.parentElement.parentElement.style.display = 'none';
+                              }
+                            }}
+                            className={`object-contain w-auto opacity-75 ${logo.name === 'NASA' ? 'h-8 sm:h-9' : 'h-6 sm:h-8'}`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </motion.div>
 
           {/* Notable Achievements Grid */}
           <motion.div variants={itemVariants} className="w-full mb-10">
             <h3 className="font-display text-base sm:text-lg font-bold uppercase tracking-widest text-slate-700 dark:text-[#a8a29e] mb-4">Notable Achievements</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
               {[
                 { icon: GraduationCap, title: 'GWA 1.05 / 4.0 GPA', sub: 'BS Information Technology, Major in Network Administration Holy Angel University', desc: 'Graduated with a GWA of 1.05 (Philippine grading scale, where 1.0 is highest). US equivalent: 4.0 GPA / Summa Cum Laude — the highest academic distinction.' },
                 { icon: Trophy, title: 'Class Valedictorian', sub: 'Humanities & Social Sciences, Hillcrest Heights Institute', desc: 'Ranked 1st in the graduating class, delivering the valedictory address and leading the student body.' },
@@ -349,13 +426,13 @@ export default function Hero() {
                     onMouseEnter={() => window.innerWidth >= 1024 && setActiveAchievement(item.title)}
                     onMouseLeave={() => window.innerWidth >= 1024 && setActiveAchievement(null)}
                     onClick={() => setActiveAchievement(activeAchievement === item.title ? null : item.title)}
-                    className={`group p-4 rounded-xl bg-slate-200 dark:bg-[#1c1917] border ${isActive ? 'border-blue-600 dark:border-[#f59e0b]' : 'border-slate-300 dark:border-[#292524]'} flex flex-col gap-3 lg:hover:border-blue-600 dark:lg:hover:border-[#f59e0b]/50 transition-colors cursor-pointer relative overflow-hidden`}
+                    className={`group p-2.5 sm:p-4 rounded-xl bg-slate-200 dark:bg-[#1c1917] border ${isActive ? 'border-blue-600 dark:border-[#f59e0b]' : 'border-slate-300 dark:border-[#292524]'} flex flex-col gap-2 sm:gap-3 lg:hover:border-blue-600 dark:lg:hover:border-[#f59e0b]/50 transition-colors cursor-pointer relative overflow-hidden`}
                   >
-                    <motion.div layout className="flex items-start gap-3">
-                      <item.icon className="text-blue-600 dark:text-[#f59e0b] shrink-0 mt-0.5" size={20} strokeWidth={1.5} />
-                      <div className="flex flex-col gap-1.5">
-                        <div className="text-slate-900 dark:text-[#f3f4f6] font-medium text-sm leading-snug transition-colors group-hover:text-blue-600 dark:group-hover:text-[#f59e0b]">{item.title}</div>
-                        {item.sub && <div className="text-slate-600 dark:text-[#a8a29e] text-xs leading-snug transition-colors group-hover:text-blue-500 dark:group-hover:text-[#f59e0b]/70">{item.sub}</div>}
+                    <motion.div layout className="flex items-start gap-2 sm:gap-3">
+                      <item.icon className="text-blue-600 dark:text-[#f59e0b] shrink-0 mt-0.5" size={18} strokeWidth={1.5} />
+                      <div className="flex flex-col gap-1 sm:gap-1.5">
+                        <div className="text-slate-900 dark:text-[#f3f4f6] font-medium text-[0.8rem] sm:text-sm leading-tight transition-colors group-hover:text-blue-600 dark:group-hover:text-[#f59e0b]">{item.title}</div>
+                        {item.sub && <div className="text-slate-600 dark:text-[#a8a29e] text-[0.7rem] sm:text-xs leading-snug transition-colors group-hover:text-blue-500 dark:group-hover:text-[#f59e0b]/70">{item.sub}</div>}
                       </div>
                     </motion.div>
                     <AnimatePresence>

@@ -37,7 +37,6 @@
   }
 
   /* Scanline texture */
-  /* Scanline texture */
   .scanlines {
     background: repeating-linear-gradient(to bottom,
         transparent 0,
@@ -70,4 +69,464 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #44403c;
   }
+
+  @keyframes marquee-left {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-100%); }
+  }
+
+  @keyframes marquee-left-follow {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0%); }
+  }
+
+  @keyframes marquee-right {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0%); }
+  }
+
+  @keyframes marquee-right-follow {
+    from { transform: translateX(0%); }
+    to { transform: translateX(100%); }
+  }
+
+  .marquee-lane {
+    position: relative;
+    overflow: hidden;
+    height: max-content;
+  }
+
+  .marquee-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .marquee-track-fast {
+    animation: marquee-left 16s linear infinite;
+  }
+
+  .marquee-track-follow {
+    animation: marquee-left-follow 16s linear infinite;
+  }
+
+  .marquee-track-reverse {
+    animation: marquee-right 20s linear infinite;
+  }
+
+  .marquee-track-follow-reverse {
+    animation: marquee-right-follow 20s linear infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ==========================================================================
+   NAVBAR — PROPORTIONAL SCALING SYSTEM
+   Phone (<640px): Logo + Clock + Theme + Hamburger. Tabs in mobile menu.
+   Tablet (640-1023px): Logo + Tiny Tabs + Clock + Theme. No hamburger.
+   Desktop (1024px+): Full size everything.
+   ========================================================================== */
+
+.navbar-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 0.75rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.navbar-logo {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+/* Nav links: hidden on phones */
+.navbar-links {
+  display: none;
+}
+
+.navbar-link {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s;
+  position: relative;
+  padding: 0.35rem 0;
+  white-space: nowrap;
+  font-size: 0.55rem;
+}
+
+.navbar-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.navbar-actions-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding-left: 0.35rem;
+  border-left: 1px solid #e2e8f0;
+}
+:is(.dark *) .navbar-actions-btns {
+  border-color: #292524;
+}
+
+.navbar-theme-btn {
+  padding: 0.25rem;
+  border-radius: 9999px;
+  color: #475569;
+  transition: all 0.2s;
+}
+.navbar-theme-btn:hover {
+  background: #f1f5f9;
+}
+:is(.dark *) .navbar-theme-btn {
+  color: #a8a29e;
+}
+:is(.dark *) .navbar-theme-btn:hover {
+  background: #1c1917;
+}
+
+.navbar-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Hamburger: visible on phones only */
+.navbar-hamburger {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  color: #0f172a;
+}
+:is(.dark *) .navbar-hamburger { color: #f3f4f6; }
+
+/* Mobile menu panel: visible on phones only */
+.navbar-mobile-menu {
+  overflow: hidden;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e2e8f0;
+}
+:is(.dark *) .navbar-mobile-menu {
+  background: rgba(12,10,9,0.95);
+  border-color: #292524;
+}
+
+/* ===== 580px+ (Tablet): Show nav tabs, hide hamburger ===== */
+@media (min-width: 580px) {
+  .navbar-container {
+    padding: 0 1rem;
+    height: 3.75rem;
+    gap: 0.5rem;
+  }
+  .navbar-logo {
+    font-size: 1rem;
+  }
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .navbar-link {
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.1rem;
+  }
+  .navbar-icon {
+    width: 15px;
+    height: 15px;
+  }
+  .navbar-hamburger {
+    display: none !important;
+  }
+  .navbar-mobile-menu {
+    display: none !important;
+  }
+}
+
+/* ===== 768px+ (Larger Tablet): More breathing room ===== */
+@media (min-width: 768px) {
+  .navbar-container {
+    padding: 0 1.25rem;
+    height: 4rem;
+    gap: 0.75rem;
+  }
+  .navbar-logo {
+    font-size: 1.1rem;
+  }
+  .navbar-links {
+    gap: 0.4rem;
+  }
+  .navbar-link {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 0.15rem;
+  }
+  .navbar-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ===== 1024px+ (Desktop): Full size ===== */
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+    height: 5rem;
+    gap: 1rem;
+  }
+  .navbar-logo {
+    font-size: 1.35rem;
+  }
+  .navbar-links {
+    gap: 1rem;
+  }
+  .navbar-link {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    padding: 0.5rem 0.25rem;
+  }
+  .navbar-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .navbar-actions-btns {
+    gap: 0.25rem;
+    padding-left: 0.75rem;
+  }
+}
+
+/* ===== 1280px+ (Large Desktop): Extra room ===== */
+@media (min-width: 1280px) {
+  .navbar-links {
+    gap: 1.5rem;
+  }
+  .navbar-link {
+    font-size: 0.85rem;
+  }
+}
+
+
+/* ==========================================================================
+   WORLD CLOCK — PROPORTIONAL SCALING
+   Always shows date + time. Scales down smoothly.
+   ========================================================================== */
+
+.clock-wrapper {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.clock-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.4rem;
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+  transition: border-color 0.2s;
+  max-width: 100%;
+  min-width: 0;
+}
+.clock-btn:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+}
+:is(.dark *) .clock-btn {
+  background: #1c1917;
+  border-color: #292524;
+}
+
+.clock-globe {
+  width: 10px;
+  height: 10px;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.clock-text-col {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  min-width: 0;
+  gap: 1px;
+}
+
+.clock-label {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  color: #475569;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:is(.dark *) .clock-label { color: #a8a29e; }
+
+.clock-time-row {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  line-height: 1;
+  min-width: 0;
+}
+
+.clock-time {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #10b981;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.clock-sep {
+  color: #94a3b8;
+  font-size: 6px;
+  flex-shrink: 0;
+}
+:is(.dark *) .clock-sep { color: #292524; }
+
+.clock-date {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:is(.dark *) .clock-date { color: #a8a29e; }
+
+.clock-chevron {
+  width: 8px;
+  height: 8px;
+  color: #64748b;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+:is(.dark *) .clock-chevron { color: #a8a29e; }
+
+/* 640px+ */
+@media (min-width: 640px) {
+  .clock-btn {
+    gap: 0.35rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .clock-globe { width: 12px; height: 12px; }
+  .clock-label { font-size: 7px; }
+  .clock-time { font-size: 9px; }
+  .clock-sep { font-size: 7px; }
+  .clock-date { font-size: 9px; }
+  .clock-chevron { width: 9px; height: 9px; }
+}
+
+/* 768px+ */
+@media (min-width: 768px) {
+  .clock-btn {
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .clock-globe { width: 13px; height: 13px; }
+  .clock-label { font-size: 8px; }
+  .clock-time { font-size: 10px; }
+  .clock-sep { font-size: 8px; }
+  .clock-date { font-size: 10px; }
+  .clock-chevron { width: 10px; height: 10px; }
+}
+
+/* 1024px+ */
+@media (min-width: 1024px) {
+  .clock-btn {
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+  }
+  .clock-globe { width: 14px; height: 14px; }
+  .clock-label { font-size: 10px; }
+  .clock-time { font-size: 12px; }
+  .clock-sep { font-size: 10px; }
+  .clock-date { font-size: 12px; }
+  .clock-chevron { width: 12px; height: 12px; }
+}
+
+
+/* ==========================================================================
+   TERMINAL (About Me) — PROPORTIONAL SCALING
+   ========================================================================== */
+
+.terminal-header {
+  padding: clamp(0.3rem, 1.5vw, 0.75rem) clamp(0.5rem, 2.5vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-dot {
+  width: clamp(0.35rem, 1vw, 0.7rem);
+  height: clamp(0.35rem, 1vw, 0.7rem);
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: clamp(0.15rem, 0.5vw, 0.35rem);
+  position: absolute;
+  left: clamp(0.5rem, 2.5vw, 1.5rem);
+}
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: clamp(0.45rem, 1.4vw, 0.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.8;
+}
+
+.terminal-body {
+  padding: clamp(0.6rem, 3.5vw, 2rem);
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 1.8vw, 0.875rem);
+  line-height: 1.7;
+}
+
+.terminal-body > * + * {
+  margin-top: clamp(0.4rem, 2.5vw, 1.25rem);
+}
+
+.terminal-quote {
+  font-size: clamp(0.5rem, 1.6vw, 0.8rem);
+  font-style: italic;
+  border-left-width: clamp(2px, 0.25vw, 3px);
+  border-left-style: solid;
+  padding-left: clamp(0.4rem, 2vw, 1rem);
+  line-height: 1.65;
+  letter-spacing: 0.02em;
 }

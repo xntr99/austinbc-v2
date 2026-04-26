@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as SimpleIcons from 'simple-icons';
+import { slimIcons } from '../data/slimIcons';
 import { X, ExternalLink, GraduationCap, Award } from 'lucide-react';
 
 const getIconPath = (slug: string) => {
-  const icon = (SimpleIcons as any)[`si${slug.charAt(0).toUpperCase() + slug.slice(1)}`];
-  return icon ? icon.path : null;
+  return slimIcons[slug] || null;
 };
 
 const certifications = [
@@ -58,7 +57,7 @@ const education = [
         id: '2',
         degree: 'Bachelor of Science in Information Technology, Major in Network Administration',
         date: 'Graduated May 2024',
-        highlight: 'GWA 1.05 (PH) · 4.0 GPA Equivalent (US) · JDN Scholar · DICT Scholar · Certified Ethical Hacker',
+        highlight: 'GWA 1.05 (PH) • 4.0 GPA Equivalent (US) • JDN Scholar • DICT Scholar • Certified Ethical Hacker',
         details: 'Esports Varsity Team Captain. Specialized in network infrastructure, full-stack development, and offensive security.'
       }
     ]
@@ -143,7 +142,7 @@ export default function Certifications() {
         </motion.div>
 
         {/* Education Section */}
-        <div className="mb-24">
+        <div id="education" className="mb-24">
           <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-bold text-slate-900 dark:text-[#f3f4f6] mb-12 flex items-center gap-4">
             <GraduationCap className="text-blue-600 dark:text-[#f59e0b]" size={40} />
             Education
@@ -158,7 +157,7 @@ export default function Certifications() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: sIndex * 0.1 }}
-                  className="bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-2xl relative overflow-hidden group shadow-2xl p-8 sm:p-10"
+                  className="bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-2xl relative overflow-hidden group shadow-2xl p-4 sm:p-10"
                 >
                   {/* Decorative background glow */}
                   <div 
@@ -166,11 +165,13 @@ export default function Certifications() {
                   />
 
                   {/* School Header */}
-                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10 relative z-10">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 sm:mb-10 relative z-10">
                     <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100/50 dark:bg-[#0c0a09]/50 border border-slate-300 dark:border-[#292524] p-3 shadow-xl transform group-hover:scale-105 transition-transform duration-500 shrink-0">
                       <img 
                         src={schoolGroup.logo} 
                         alt={schoolGroup.school} 
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain"
                         referrerPolicy="no-referrer"
                       />
@@ -231,7 +232,7 @@ export default function Certifications() {
             <Award className="text-[#ef4444]" size={40} />
             Professional Affiliations
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-6">
             {affiliations.map((affil, index) => {
               const v = colorVariants[index % 6];
               return (
@@ -241,12 +242,12 @@ export default function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl p-6 border-l-4 lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 ${v.hoverBorder} ${v.borderLeft} transition-all duration-300 h-full flex flex-col justify-between`}
+                className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl p-3 sm:p-6 border-l-4 lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 ${v.hoverBorder} ${v.borderLeft} transition-all duration-300 h-full flex flex-col justify-between`}
               >
-                <h4 className="font-heading text-lg font-bold text-slate-900 dark:text-[#f3f4f6] mb-4">{affil.org}</h4>
-                <div className="flex justify-between items-center font-mono text-sm text-slate-700 dark:text-[#d1d5db] uppercase tracking-wider">
+                <h4 className="font-heading text-[0.8rem] sm:text-lg font-bold text-slate-900 dark:text-[#f3f4f6] mb-2 sm:mb-4">{affil.org}</h4>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center font-mono text-[0.65rem] sm:text-sm text-slate-700 dark:text-[#d1d5db] uppercase tracking-wider gap-1 sm:gap-0">
                   <span className={`font-bold ${v.text}`}>{affil.role}</span>
-                  <span>{affil.date}</span>
+                  <span className="opacity-80">{affil.date}</span>
                 </div>
               </motion.div>
             )})}
@@ -273,7 +274,7 @@ export default function Certifications() {
         {/* Certifications Grid */}
         <motion.div 
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6"
         >
           <AnimatePresence>
             {filteredCerts.map((cert, index) => {
@@ -288,9 +289,9 @@ export default function Certifications() {
                   transition={{ duration: 0.3 }}
                   key={cert.id}
                   onClick={() => setSelectedCert(cert)}
-                  className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl p-6 flex flex-col items-center text-center cursor-pointer group lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 ${v.hoverBorder} transition-all duration-300`}
+                  className={`bg-slate-200/80 dark:bg-[#1c1917]/80 backdrop-blur-md border border-slate-300 dark:border-[#292524] rounded-xl p-3 sm:p-6 flex flex-col items-center text-center cursor-pointer group lg:hover:bg-slate-300/80 dark:lg:hover:bg-white/5 ${v.hoverBorder} transition-all duration-300`}
                 >
-                  <div className={`w-16 h-16 mb-6 flex items-center justify-center transition-colors ${v.text}`}>
+                  <div className={`w-10 h-10 sm:w-16 sm:h-16 mb-3 sm:mb-6 flex items-center justify-center transition-colors ${v.text}`}>
                     {svgPath ? (
                       <svg role="img" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
                         <path d={svgPath} />
@@ -299,7 +300,7 @@ export default function Certifications() {
                       <Award size={48} strokeWidth={1.5} />
                     )}
                   </div>
-                  <h3 className={`font-heading text-lg font-bold text-slate-900 dark:text-[#f3f4f6] mb-2 transition-colors ${v.groupHoverText}`}>
+                  <h3 className={`font-heading text-[0.85rem] sm:text-lg font-bold text-slate-900 dark:text-[#f3f4f6] mb-1 sm:mb-2 transition-colors ${v.groupHoverText}`}>
                     {cert.name}
                   </h3>
                   <p className="font-body text-sm text-slate-700 dark:text-[#d1d5db] mb-4">{cert.issuer}</p>
